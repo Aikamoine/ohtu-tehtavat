@@ -3,22 +3,12 @@ package ohtu.verkkokauppa;
 import java.util.*;
 
 public class Varasto implements VarastoIF {
-
-    private static Varasto instanssi;
-
-    public static Varasto getInstance() {
-        if (instanssi == null) {
-            instanssi = new Varasto();
-        }
-
-        return instanssi;
-    }
     
-    private Kirjanpito kirjanpito;
+    private KirjanpitoIF kirjanpito;
     private HashMap<Tuote, Integer> saldot;  
     
-    private Varasto() {
-        kirjanpito = Kirjanpito.getInstance();
+    public Varasto(KirjanpitoIF kp) {
+        kirjanpito = kp;
         saldot = new HashMap<Tuote, Integer>();
         alustaTuotteet();
     }
