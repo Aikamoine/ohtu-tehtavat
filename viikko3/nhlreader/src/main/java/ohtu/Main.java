@@ -2,6 +2,7 @@ package ohtu;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Arrays;
 import org.apache.http.client.fluent.Request;
 
 public class Main {
@@ -16,7 +17,9 @@ public class Main {
         Gson mapper = new Gson();
         Player[] players = mapper.fromJson(bodyText, Player[].class);
         
-        System.out.println("Suomalaiset pelajaat");
+        Arrays.sort(players);
+        
+        System.out.println("Suomalaiset pelajaat pistejärjestyksessä");
         for (Player player : players) {
             if (player.getNationality().equals("FIN")) {
                 System.out.println(player);
