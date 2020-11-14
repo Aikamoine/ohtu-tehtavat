@@ -40,7 +40,17 @@ public class AuthenticationService {
 
     private boolean invalid(String username, String password) {
         // validity check of username and password
-
-        return false;
+        if (username.length() < 3 || password.length() < 8) {
+            return true;
+        }
+        
+        boolean invalidi = true;
+        for (int i = 0; i < password.length(); i++) {
+            char c = password.charAt(i);
+            if (Character.isDigit(c)) {
+                invalidi = false;
+            }
+        }
+        return invalidi;
     }
 }
