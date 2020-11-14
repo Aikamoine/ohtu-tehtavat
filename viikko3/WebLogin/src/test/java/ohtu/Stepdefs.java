@@ -102,6 +102,20 @@ public class Stepdefs {
         assertTrue(driver.getPageSource().contains(error));
     }
 
+    @Given("user with username {string} with password {string} is successfully created")
+    public void userWithUsernameWithPasswordIsSuccessfullyCreated(String username, String password) {
+        commandNewUserIsSelected();
+        createUser(username, password);
+    }
+
+    @Given("user with username {string} and password {string} is tried to be created")
+    public void userWithUsernameAndPasswordIsTriedToBeCreated(String username, String password) {
+        commandNewUserIsSelected();
+        createUser(username, password);
+        WebElement element = driver.findElement(By.linkText("back to home"));
+        element.click();
+    }
+
     /* helper methods */
     private void pageHasContent(String content) {
         assertTrue(driver.getPageSource().contains(content));
