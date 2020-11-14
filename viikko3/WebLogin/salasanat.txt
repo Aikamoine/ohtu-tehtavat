@@ -3,3 +3,7 @@ toinen;kolmas
 attaboy;kahdeksan
 japosdfjpa;kahdekasn
 attaboy8649;kahdeksan
+tamaeitulegithubiin;12343
+username;password1
+username1;short1
+username2;salainen1

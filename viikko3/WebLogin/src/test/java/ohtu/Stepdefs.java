@@ -24,6 +24,13 @@ public class Stepdefs {
         element.click();
     }
 
+    @Given("command new user is selected")
+    public void commandNewUserIsSelected() {
+        driver.get(baseUrl);
+        WebElement element = driver.findElement(By.linkText("register new user"));
+        element.click();
+    }
+
     @When("correct username {string} and password {string} are given")
     public void correctUsernameAndPasswordAreGiven(String username, String password) {
         logInWith(username, password);
@@ -65,6 +72,36 @@ public class Stepdefs {
         driver.quit();
     }
 
+    @When("a valid username {string} and password {string} and matching password confirmation are entered")
+    public void aValidUsernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        createUser(username, password);
+    }
+
+    @Then("a new user is created")
+    public void aNewUserIsCreated() {
+        assertTrue(driver.getPageSource().contains("Welcome to Ohtu Application!"));
+    }
+
+    @When("an invalid username {string} and password {string} and matching password confirmation are entered")
+    public void anInvalidUsernameAndPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        createUser(username, password);
+    }
+
+    @When("a valid username {string} and too short password {string} and matching password confirmation are entered")
+    public void aValidUsernameAndTooShortPasswordAndMatchingPasswordConfirmationAreEntered(String username, String password) {
+        createUser(username, password);
+    }
+
+    @When("a valid username {string} and valid password {string} and unmatching passoword {string} are entered")
+    public void aValidUsernameAndValidPasswordAndUnmatchingPassowordAreEntered(String username, String password, String passwordConfirmation) {
+        createUser(username, password, passwordConfirmation);
+    }
+
+    @Then("user is not created and error {string} is reported")
+    public void userIsNotCreatedAndMatchingErrorIsReported(String error) {
+        assertTrue(driver.getPageSource().contains(error));
+    }
+
     /* helper methods */
     private void pageHasContent(String content) {
         assertTrue(driver.getPageSource().contains(content));
@@ -79,4 +116,21 @@ public class Stepdefs {
         element = driver.findElement(By.name("login"));
         element.submit();
     }
+
+    private void createUser(String username, String password) {
+        createUser(username, password, password);
+    }
+
+    private void createUser(String username, String password, String passwordConfirmation) {
+        assertTrue(driver.getPageSource().contains("Create username and give password"));
+
+        WebElement element = driver.findElement(By.name("username"));
+        element.sendKeys(username);
+        element = driver.findElement(By.name("password"));
+        element.sendKeys(password);
+        element = driver.findElement(By.name("passwordConfirmation"));
+        element.sendKeys(passwordConfirmation);
+        element.submit();
+    }
+
 }
